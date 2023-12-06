@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import WelcomeFc from './componenets/GreetingFc';
+import Welcome from './componenets/Greeting';
+import Card from './componenets/Card';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Welcome name="mohamed" />
+
+      <Card title="product-1" description="this is product 1" price="100" />
     </div>
   );
 }
