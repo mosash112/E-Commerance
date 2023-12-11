@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from './Button';
 
 class Card extends React.Component {
     render(){
@@ -7,6 +8,7 @@ class Card extends React.Component {
                 <h1>{this.props.title}</h1>
                 <p>{this.props.description}</p>
                 <span>{this.props.price}</span>
+                <Button title="Details"></Button>
             </div>
         )
     }
