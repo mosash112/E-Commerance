@@ -1,4 +1,5 @@
 import React from "react";
+import Time from "./Time";
 
 class Credits extends React.Component {
     constructor(props){
@@ -11,7 +12,10 @@ class Credits extends React.Component {
 
     render(){
         return(
-            <h6>created by, {this.state.firstName} {this.state.lastName}</h6>
+            <div className="Credits">
+                <h6>created by, {this.state.firstName} {this.state.lastName}</h6>
+                <Time />
+            </div>
         )
     }
 }

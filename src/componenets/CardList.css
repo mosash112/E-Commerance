@@ -1,0 +1,11 @@
+.card-list {
+    width: 90%;
+    margin: auto;
+
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}

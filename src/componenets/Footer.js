@@ -1,6 +1,6 @@
 import React from "react";
 import Credits from "./Credits";
-import Time from "./Time";
+import './Footer.css'
 
 class Footer extends React.Component{
     constructor(props){
@@ -13,10 +13,9 @@ class Footer extends React.Component{
 
     render(){
         return(
-            <>
+            <div className="Footer">
                 <Credits name={this.state}></Credits>
-                <Time></Time>
-            </>
+            </div>
         )
     }
 }

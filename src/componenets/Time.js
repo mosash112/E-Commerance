@@ -8,7 +8,9 @@ class Time extends React.Component {
 
     render(){
         return(
-            <h6>{this.state.time.toLocaleTimeString()} {this.state.time.toLocaleDateString()}</h6>
+            <div className="Time">
+                <h6>{this.state.time.toLocaleTimeString()} {this.state.time.toLocaleDateString()}</h6>
+            </div>
         )
     }
 
