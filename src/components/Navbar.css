@@ -8,9 +8,13 @@
 }
 
 .logo{
-    border: 1px solid white;
+    background-image: url('./logo.png');
+    background-size: cover;
+    background-position: center;
+    /* border: 1px solid white; */
     border-radius: 50%;
-    height: 75%;
+    height: 50px;
+    width: 50px;
     margin: 8px;
 }
 

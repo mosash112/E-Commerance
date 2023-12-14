@@ -1,7 +1,7 @@
 import './App.css';
-import CardList from './componenets/CardList';
-import Footer from './componenets/Footer';
-import Navbar from './componenets/Navbar';
+import CardList from './components/CardList';
+import Footer from './components/Footer';
+import Navbar from './components/Navbar';
 
 function App() {
   return (

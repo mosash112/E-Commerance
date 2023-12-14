@@ -1,5 +1,6 @@
 import React from "react";
 import './Navbar.css';
+import './logo.png';
 
 class Navbar extends React.Component {
     constructor(props){
@@ -10,7 +11,7 @@ class Navbar extends React.Component {
     render(){
         return(
             <div className="nav-bar">
-                <img className="logo" src="https://img.freepik.com/premium-vector/white-square-box-top-view-concept_152104-242.jpg?size=626&ext=jpg"></img>
+                <img className="logo"></img>
                 <div className="nav-btns">
                     <button className="nav-btn">home</button>
                     <button className="nav-btn">about us</button>
