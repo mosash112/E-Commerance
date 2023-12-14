@@ -1,16 +1,27 @@
 import React from "react";
-import cardsData from "../cards-data";
 import Card from "./Card";
 import './CardList.css';
 
 class CardList extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = {
+            cards:[]
+        };
+    }
+
+    componentDidMount(){
+        fetch('https://fakestoreapi.com/products')
+            .then(res=>res.json())
+            .then(json=>this.readData(json))
+    }
+
+    readData = (json)=>{
+        this.setState({cards:json})
     }
 
     render(){
-        const cards = cardsData.map((card)=>{
+        const cards = this.state.cards.map((card)=>{
             return(
                 <Card product={card} key={card.id}/>
             )
@@ -18,6 +29,7 @@ class CardList extends React.Component {
 
         return(
             <div className="card-list">
+                {cards.length == 0 ? <h1>loading...</h1> : null}
                 <div className="row">
                     {cards}
                 </div>
