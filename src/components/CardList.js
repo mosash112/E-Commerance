@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-// import './CardList.css';
+import './CardList.css';
 
 class CardList extends React.Component {
     constructor(props) {
@@ -55,7 +55,7 @@ class CardList extends React.Component {
 
         const categories = this.state.categories.map((category) => {
             return (
-                <button className="btn btn-info" key={category} onClick={() => { this.getProductsInCategory(category) }}>{category}</button>
+                <button className="filter-btn" key={category} onClick={() => { this.getProductsInCategory(category) }}>{category}</button>
             )
         })
 
@@ -64,8 +64,10 @@ class CardList extends React.Component {
                 {cards.length === 0 ? <h1>loading...</h1> : null}
                 <h2 className="text-center p-3">Our products</h2>
                 <div className="container">
-                    <button className="btn btn-info" onClick={() => { this.getProducts() }}>All</button>
-                    {categories}
+                    <div className="filter-btns">
+                        <button className="filter-btn" onClick={() => { this.getProducts() }}>All</button>
+                        {categories}
+                    </div>
                     <div className="row">
                         {cards}
                     </div>

@@ -9,16 +9,18 @@ class Card extends React.Component {
         return (
             <>
                 <div className="card product-card" key={card.id}>
+                    <Link className='link-overlay' to={`/products/${card.id}`} >
+                    </Link>
                     <img src={card.image} className="card-img-top" alt={card.title} />
                     <div className="card-body">
                         <h5 className="card-title title">{card.title}</h5>
                         <div className='fade-overflow'>
                             <p className="card-text desc">{card.description}</p>
                         </div>
-                        <p>price: {card.price}$</p>
+                        <p className='card-price'>price: {card.price}$</p>
                         {/* <ProductRating rate={card.rating.rate} count={card.rating.count} /> */}
-                        {this.props.showButton && <Link className="detailsbtn btn btn-primary" to={`/products/${card.id}`} >Details</Link>}
                     </div>
+                    {this.props.showButton && <button className="buybtn btn btn-primary">Buy</button>}
                 </div>
             </>
         )

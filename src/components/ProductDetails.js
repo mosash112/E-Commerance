@@ -13,7 +13,6 @@ function ProductDetails(){
         .then(json => setProduct(json))
     }, [])
 
-    console.log(product);
     return(
         <>
             <Card product={product} showButton={false}/>
