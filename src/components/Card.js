@@ -1,21 +1,26 @@
 import React from 'react';
-import ProductRating from './ProductRating';
+// import ProductRating from './ProductRating';
 import './Card.css'
+import { Link } from 'react-router-dom';
 
 class Card extends React.Component {
-    render(){
+    render() {
         const card = this.props.product;
-        return(
-            <div className='product-card' key={card.id}>
-                <img src={card.image} alt={card.desc}></img>
-                <h3 className='title'>{card.title}</h3>
-                <div className='fade-overflow'>
-                    <p className='desc'>{card.description}</p>
+        return (
+            <>
+                <div className="card product-card" key={card.id}>
+                    <img src={card.image} className="card-img-top" alt={card.title} />
+                    <div className="card-body">
+                        <h5 className="card-title title">{card.title}</h5>
+                        <div className='fade-overflow'>
+                            <p className="card-text desc">{card.description}</p>
+                        </div>
+                        <p>price: {card.price}$</p>
+                        {/* <ProductRating rate={card.rating.rate} count={card.rating.count} /> */}
+                        {this.props.showButton && <Link className="detailsbtn btn btn-primary" to={`/products/${card.id}`} >Details</Link>}
+                    </div>
                 </div>
-                <span>price: {card.price}</span>
-                <ProductRating rate={card.rating.rate} count={card.rating.count}/>
-                <button className='buybtn' onClick={()=>{console.log("you are buying",card.title);}}>Buy</button>
-            </div>
+            </>
         )
     }
 }
