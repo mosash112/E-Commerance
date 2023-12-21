@@ -1,7 +1,7 @@
 import image1 from './Images/image-1.png';
 import image2 from './Images/image-2.png';
 import image3 from './Images/image-3.png';
-import './Slider.css';
+import './css/Slider.css';
 
 function Slider() {
     return (
