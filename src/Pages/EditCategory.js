@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function EditCategory() {
     const params = useParams();
-    const api_url = 'http://localhost:9000/categories';
+    const api_url = 'https://fakestoreapi.com/products/categories';
     const [category, setCategory] = useState({})
     const [title, setTitle] = useState();
     let navigate = useNavigate()

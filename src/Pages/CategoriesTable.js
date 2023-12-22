@@ -5,12 +5,14 @@ import Swal from 'sweetalert2';
 
 function CategoriesTable() {
     const [categories, setCategories] = useState([]);
+    const api_url = 'https://fakestoreapi.com/products/categories'
+
     useEffect(() => {
         getAllCategories()
     }, [])
 
     const getAllCategories = () => {
-        fetch('http://localhost:9000/categories')
+        fetch(api_url)
             .then(res => res.json())
             .then(json => {
                 setCategories(json);
@@ -23,7 +25,7 @@ function CategoriesTable() {
             showCancelButton: true
         }).then((data) => {
             if (data.isConfirmed) {
-                fetch(`http://localhost:9000/categories/${category.id}`, { method: "DELETE" })
+                fetch(`${api_url}/${category.id}`, { method: "DELETE" })
                     .then(res => res.json())
                     .then(json => {
                         console.log(`successfully deleted category #${category.id}`);

@@ -18,7 +18,7 @@ import Cart from './Pages/Cart';
 function App() {
 
   useEffect(() => {
-    document.title = "My E-Store"
+    document.title = "My E-Commerce"
   }, [])
 
   return (

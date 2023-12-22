@@ -6,6 +6,7 @@ function AddCategory() {
 
     const [title, setTitle] = useState();
     let navigate = useNavigate()
+    const api_url = 'https://fakestoreapi.com/products/categories'
 
     const titleHandler = (value) => {
         setTitle(value)
@@ -14,7 +15,7 @@ function AddCategory() {
     const formSubmit = (e) => {
         e.preventDefault();
         console.log("form submited");
-        axios.post('http://localhost:9000/categories', {
+        axios.post(api_url, {
             title
         })
             .then(json => {

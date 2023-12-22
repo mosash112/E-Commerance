@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 
 function ProductsTable() {
     const [products, setProducts] = useState([]);
-    const api_url = 'http://localhost:9000/prdocuts';
+    const api_url = 'https://fakestoreapi.com/products';
 
     useEffect(() => {
         getAllProducts()

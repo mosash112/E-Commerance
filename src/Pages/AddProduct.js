@@ -12,6 +12,7 @@ function AddProduct() {
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     let navigate = useNavigate()
+    const api_url = 'https://fakestoreapi.com/products'
 
     const imageHandler = (event) => {
         const file = event.target.files[0]; // Access the selected file
@@ -55,7 +56,7 @@ function AddProduct() {
     const formSubmit = (e) => {
         e.preventDefault();
         console.log("form submited");
-        axios.post('http://localhost:9000/prdocuts', {
+        axios.post(api_url, {
             title, price, description, category, image, rating:{rate, count}
         })
             .then(json => {

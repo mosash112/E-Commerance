@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 function EditProduct() {
     const params = useParams();
-    const api_url = 'http://localhost:9000/prdocuts';
+    const api_url = 'https://fakestoreapi.com/products';
     const [product, setProduct] = useState({})
     const [title, setTitle] = useState();
     const [price, setPrice] = useState();
