@@ -12,11 +12,10 @@
     background: linear-gradient(to bottom, white, rgb(0, 0, 0, .2));
 }
 
-.link-overlay{
+.link-overlay {
     height: 90%;
     width: 101%;
     margin-top: -6px;
-    margin-left: -5.5px;
     position: absolute;
     /* border: 1px solid red; */
 }
@@ -26,6 +25,11 @@
     width: 200px;
     height: 200px;
     border-radius: 15px;
+}
+
+.card-body{
+    /* border: 1px solid green; */
+    max-width: 100%;
 }
 
 .title {
@@ -41,7 +45,7 @@
     /* border: 1px solid blue; */
 }
 
-.fade-overflow p {
+.fade-overflow .desc {
     /* padding: 5px; */
     width: 95%;
     height: 100px;
@@ -50,9 +54,11 @@
     mask-image: linear-gradient(to bottom, white 50%, transparent 100%);
 }
 
-.product-card p{
+.product-card p {
     text-align: center;
     margin: 5px;
+    max-width: 100%;
+    /* border: 1px solid red; */
 }
 
 .product-card .buybtn {

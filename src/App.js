@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-// import './App.css';
+import './App.css';
 import Footer from './components/Footer';
-import Navbar from './components/Navbar';
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home';
 import Sidebar from './components/Sidebar';
 import ProductDetails from './Pages/ProductDetails';
@@ -13,6 +12,8 @@ import CategoriesTable from './Pages/CategoriesTable';
 import AddCategory from './Pages/AddCategory';
 import EditProduct from './Pages/EditProduct';
 import EditCategory from './Pages/EditCategory';
+import AppNavbar from './components/AppNavbar';
+import Cart from './Pages/Cart';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar />
+      <AppNavbar />
       <div className='row'>
         <div className='col-2 sidebar'>
           <Sidebar />
@@ -30,13 +31,21 @@ function App() {
         <div className='col-10'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='products' element={<ProductDisplay />} />
-            <Route path='products/:productId' element={<ProductDetails />} />
-            <Route path='productsTable' element={<ProductsTable />} />
-            <Route path='productsTable/add' element={<AddProduct />} />
-            <Route path='products/edit/:productId' element={<EditProduct />} />
-            <Route path='categoriesTable' element={<CategoriesTable />} />
-            <Route path='categoriesTable/add' element={<AddCategory />} />
+            <Route path='Cart' element={<Cart />} />
+            <Route path='products' element={<Outlet />} >
+              <Route path='' element={<ProductDisplay />} />
+              <Route path=':productId' element={<ProductDetails />} />
+              <Route path='edit/:productId' element={<EditProduct />} />
+            </Route>
+            <Route path='productsTable' element={<Outlet />} >
+              <Route path='' element={<ProductsTable />} />
+              <Route path='add' element={<AddProduct />} />
+            </Route>
+            <Route path='categoriesTable' element={<Outlet />} >
+
+              <Route path='' element={<CategoriesTable />} />
+              <Route path='add' element={<AddCategory />} />
+            </Route>
             <Route path='categories/edit/:categoryId' element={<EditCategory />} />
           </Routes>
         </div>
