@@ -1,25 +1,29 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 function AddCategory() {
 
-    const [title, setTitle] = useState();
+    const [name, setName] = useState();
     let navigate = useNavigate()
-    const api_url = 'https://fakestoreapi.com/products/categories'
+    const token = useSelector(state => state.user.token)
+    const api_url = 'http://localhost:9000/products/categories'
 
-    const titleHandler = (value) => {
-        setTitle(value)
+    const nameHandler = (value) => {
+        setName(value)
     }
 
     const formSubmit = (e) => {
         e.preventDefault();
         console.log("form submited");
-        axios.post(api_url, {
-            title
-        })
+        const headers = {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+        axios.post(api_url, { name }, { headers: headers })
             .then(json => {
-                console.log(`successfully added category ${title}`);
+                console.log(`successfully added category ${name}`);
                 navigate('/categoriesTable')
             });
     }
@@ -31,8 +35,8 @@ function AddCategory() {
 
             <form onSubmit={formSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="categoryTitle" className="form-label">Title</label>
-                    <input type="text" className="form-control" id="categoryTitle" placeholder="category title" aria-describedby="category title" onChange={(e) => { titleHandler(e.target.value) }} />
+                    <label htmlFor="categoryName" className="form-label">Name</label>
+                    <input type="text" className="form-control" id="categoryName" placeholder="category name" aria-describedby="category name" onChange={(e) => { nameHandler(e.target.value) }} />
                 </div>
                 <button type="submit" className="btn btn-primary">Add Category</button>
             </form>

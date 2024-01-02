@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 function EditCategory() {
     const params = useParams();
-    const api_url = 'https://fakestoreapi.com/products/categories';
+    const api_url = 'http://localhost:9000/products/categories';
     const [category, setCategory] = useState({})
-    const [title, setTitle] = useState();
+    const [name, setName] = useState();
     let navigate = useNavigate()
+    const token = useSelector(state => state.user.token)
 
     useEffect(() => {
         fetch(`${api_url}/${params.categoryId}`)
@@ -16,18 +18,23 @@ function EditCategory() {
             .then(json => setCategory(json))
     }, [])
 
-    const titleHandler = (value) => {
-        setTitle(value)
+    const nameHandler = (value) => {
+        setName(value)
     }
 
     const formSubmit = (e) => {
         e.preventDefault();
         console.log("form submited");
-        axios.put(`${api_url}/${category.id}`, {
-            title
-        })
+        const headers = {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+        axios.patch(`${api_url}/${category._id}`, [{
+            propName:
+                'name', value: name
+        }], { headers: headers })
             .then(json => {
-                console.log(`successfully updated category ${title}`);
+                console.log(`successfully updated category ${name}`);
                 navigate('/categoriesTable')
             });
     }
@@ -39,8 +46,8 @@ function EditCategory() {
 
             <form onSubmit={formSubmit}>
                 <div className="mb-3">
-                    <label htmlFor="categoryTitle" className="form-label">Title</label>
-                    <input type="text" className="form-control" id="categoryTitle" placeholder={category.title} aria-describedby="category title" onChange={(e) => { titleHandler(e.target.value) }} />
+                    <label htmlFor="categoryName" className="form-label">Name</label>
+                    <input type="text" className="form-control" id="categoryName" placeholder={category.name} aria-describedby="category name" onChange={(e) => { nameHandler(e.target.value) }} />
                 </div>
                 <button type="submit" className="btn btn-primary">Update Category</button>
             </form>

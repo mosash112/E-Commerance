@@ -1,6 +1,52 @@
 .App {
   /* text-align: center; */
   padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.screen{
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  height: auto;
+  width: 200px;
+  /* background-color: #c8c8c8; */
+}
+
+.collapsebtn {
+  width: 200px;
+}
+
+.sidebar li {
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.sidebar li a {
+  text-decoration: none;
+  color: black;
+}
+
+.sidebar li a:hover {
+  color: gray;
+}
+
+.container{
+  width: 100%;
+  /* background-color: darkgray; */
+  /* border: 1px solid red; */
+}
+
+.content {
+  flex: 1;
+}
+
+footer {
+  flex-shrink: 0;
 }
 
 /* .App-logo {

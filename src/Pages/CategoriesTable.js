@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../components/css/Table.css';
 import Swal from 'sweetalert2';
+import { useSelector } from "react-redux";
 
 function CategoriesTable() {
     const [categories, setCategories] = useState([]);
-    const api_url = 'https://fakestoreapi.com/products/categories'
+    const api_url = 'http://localhost:9000/products/categories'
+    const token = useSelector((state) => state.user.token)
 
     useEffect(() => {
         getAllCategories()
@@ -21,14 +23,18 @@ function CategoriesTable() {
 
     const deleteCategory = (category) => {
         Swal.fire({
-            title: `you are sure you want to delete ${category.title} ?`,
+            title: `you are sure you want to delete ${category.name} ?`,
             showCancelButton: true
         }).then((data) => {
             if (data.isConfirmed) {
-                fetch(`${api_url}/${category.id}`, { method: "DELETE" })
+                const headers = {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+                fetch(`${api_url}/${category._id}`, { method: "DELETE", headers: headers })
                     .then(res => res.json())
                     .then(json => {
-                        console.log(`successfully deleted category #${category.id}`);
+                        console.log(`successfully deleted category #${category._id}`);
                         getAllCategories();
                     });
             }
@@ -48,15 +54,15 @@ function CategoriesTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories.map((category) => {
+                    {categories.map((category, index) => {
                         return (
-                            <tr key={category.id}>
-                                <td>{category.id}</td>
-                                <td>{category?.title}</td>
+                            <tr key={category._id}>
+                                <td>{index + 1}</td>
+                                <td>{category?.name}</td>
                                 <td>
                                     <button className="btn btn-danger btn-sm" onClick={() => { deleteCategory(category) }}>Delete</button>
-                                    {/* <Link to={`/categories/${category.id}`} className="btn btn-info btn-sm">View</Link> */}
-                                    <Link to={`/categories/edit/${category.id}`} className="btn btn-primary btn-sm">Edit</Link>
+                                    <Link to={`/products/categories/${category._id}`} className="btn btn-info btn-sm">View</Link>
+                                    <Link to={`/categories/edit/${category._id}`} className="btn btn-primary btn-sm">Edit</Link>
                                 </td>
                             </tr>
                         )

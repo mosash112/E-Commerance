@@ -2,21 +2,32 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import '../components/css/Table.css';
 import Swal from 'sweetalert2';
+import { useSelector } from "react-redux";
 
 function ProductsTable() {
     const [products, setProducts] = useState([]);
-    const api_url = 'https://fakestoreapi.com/products';
+    const [categories, setCategories] = useState([]);
+    const api_url = 'http://localhost:9000/products';
+    const token = useSelector((state) => state.user.token)
 
     useEffect(() => {
         getAllProducts()
+        getAllCategories()
     }, [])
 
     const getAllProducts = () => {
         fetch(api_url)
             .then(res => res.json())
             .then(json => {
-                setProducts(json);
+                setProducts(json.products);
             })
+    }
+
+    const getAllCategories = () => {
+        fetch(`${api_url}/categories`)
+            .then(response => response.json())
+            .then(data => { setCategories(data); console.log(); })
+            .catch(error => console.error('Error fetching categories:', error));
     }
 
     const deleteProduct = (product) => {
@@ -25,10 +36,14 @@ function ProductsTable() {
             showCancelButton: true
         }).then((data) => {
             if (data.isConfirmed) {
-                fetch(`${api_url}/${product.id}`, { method: "DELETE" })
+                const headers = {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
+                fetch(`${api_url}/${product._id}`, { method: "DELETE", headers: headers })
                     .then(res => res.json())
                     .then(json => {
-                        console.log(`successfully deleted product #${product.id}`);
+                        console.log(`successfully deleted product #${product._id}`);
                         getAllProducts();
                     });
             }
@@ -44,23 +59,27 @@ function ProductsTable() {
                     <tr>
                         <th>ID</th>
                         <th>Title</th>
+                        <th>Category</th>
                         <th>Description</th>
                         <th>Price</th>
                         <th>Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product) => {
+                    {products.map((product, index) => {
                         return (
-                            <tr key={product.id}>
-                                <td>{product.id}</td>
+                            <tr key={product._id}>
+                                <td>{index + 1}</td>
                                 <td>{product?.title?.slice(0, 30)}...</td>
+                                <td>{
+                                    categories.find(cat=>cat._id === product?.category)?.name
+                                }</td>
                                 <td>{product?.description?.slice(0, 50)}...</td>
                                 <td>{product.price}</td>
                                 <td>
                                     <button className="btn btn-danger btn-sm" onClick={() => { deleteProduct(product) }}>Delete</button>
-                                    <Link to={`/products/${product.id}`} className="btn btn-info btn-sm">View</Link>
-                                    <Link to={`/products/edit/${product.id}`} className="btn btn-primary btn-sm">Edit</Link>
+                                    <Link to={`/products/${product._id}`} className="btn btn-info btn-sm">View</Link>
+                                    <Link to={`/products/edit/${product._id}`} className="btn btn-primary btn-sm">Edit</Link>
                                 </td>
                             </tr>
                         )

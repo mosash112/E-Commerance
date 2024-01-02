@@ -1,56 +1,68 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Footer from './components/Footer';
-import { Outlet, Route, Routes } from 'react-router-dom';
-import Home from './Pages/Home';
-import Sidebar from './components/Sidebar';
-import ProductDetails from './Pages/ProductDetails';
-import ProductDisplay from './Pages/ProductsDisplay';
-import ProductsTable from './Pages/ProductsTable';
-import AddProduct from './Pages/AddProduct';
-import CategoriesTable from './Pages/CategoriesTable';
-import AddCategory from './Pages/AddCategory';
-import EditProduct from './Pages/EditProduct';
-import EditCategory from './Pages/EditCategory';
 import AppNavbar from './components/AppNavbar';
-import Cart from './Pages/Cart';
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSidebar } from './rtk/slices/collapse-slice';
+import { Link } from "react-router-dom";
+import PathRouter from './components/PathRouter';
 
 function App() {
+  const dispatch = useDispatch()
+  const collapsed = useSelector(state => state.collapse)
+  const token = useSelector(state => state.user.token)
+  const [categories, setCategories] = useState([]);
+  const api_url = 'http://localhost:9000/products'
+
+  const collapseSidebar = () => {
+    dispatch(toggleSidebar(collapsed))
+  }
 
   useEffect(() => {
     document.title = "My E-Commerce"
+    if (token !== '') {
+      getAllCategories()
+    }
   }, [])
+
+  const getAllCategories = () => {
+    fetch(`${api_url}/categories`)
+      .then(response => response.json())
+      .then(data => { setCategories(data) })
+      .catch(error => console.error('Error fetching categories:', error));
+  }
 
   return (
     <div className="App">
       <AppNavbar />
-      <div className='row'>
-        <div className='col-2 sidebar'>
-          <Sidebar />
-        </div>
-        <div className='col-10'>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='Cart' element={<Cart />} />
-            <Route path='products' element={<Outlet />} >
-              <Route path='' element={<ProductDisplay />} />
-              <Route path=':productId' element={<ProductDetails />} />
-              <Route path='edit/:productId' element={<EditProduct />} />
-            </Route>
-            <Route path='productsTable' element={<Outlet />} >
-              <Route path='' element={<ProductsTable />} />
-              <Route path='add' element={<AddProduct />} />
-            </Route>
-            <Route path='categoriesTable' element={<Outlet />} >
-
-              <Route path='' element={<CategoriesTable />} />
-              <Route path='add' element={<AddCategory />} />
-            </Route>
-            <Route path='categories/edit/:categoryId' element={<EditCategory />} />
-          </Routes>
+      <button className="btn collapsebtn" onClick={() => collapseSidebar()} type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+        {collapsed}
+      </button>
+      <div className='row content'>
+        <div className='screen'>
+          <div className="collapse collapse-horizontal" id="collapseWidthExample">
+            <ul className="list-unstyled sidebar">
+              <li>
+                <Link to="products">get all products</Link>
+              </li>
+              <ul className='list-unstyled'>
+                <li>Filters</li>
+                {categories.map((category) => {
+                  return (
+                    <li key={category._id}>
+                      <Link to={`products/categories/${category._id}`}>{category.name}</Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </ul>
+          </div>
+          <div className='container'>
+            <PathRouter />
+          </div>
         </div>
       </div>
-      <Footer />
+      <Footer className='footer' />
     </div >
   );
 }
