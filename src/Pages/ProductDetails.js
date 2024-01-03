@@ -29,7 +29,7 @@ function ProductDetails() {
 
     return (
         <>
-            <h1 className="text-center p-3">Product Details #{product._id}</h1>
+            <h1 className="text-center p-3">Product Details</h1>
             <div className="product-details">
                 <div className="img-title">
                     <img src={product?.image} className="" alt={product.title} />
