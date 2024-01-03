@@ -5,7 +5,7 @@ const cartSlice = createSlice({
     name: "cartSlice",
     reducers: {
         addToCart: (state, action) => {
-            const foundProduct = state.find((product) => product.id === action.payload.id)
+            const foundProduct = state.find((product) => product._id === action.payload._id)
             if (foundProduct) {
                 foundProduct.quantity += 1
             } else {
@@ -14,12 +14,12 @@ const cartSlice = createSlice({
             }
         },
         deleteFromCart: (state, action) => {
-            return state.filter((product) => product.id !== action.payload.id)
+            return state.filter((product) => product._id !== action.payload._id)
         },
         decreaseQuantity: (state, action) => {
             const productClone = { ...action.payload }
             if (productClone.quantity > 1) {
-                const foundProduct = state.find((product) => product.id === action.payload.id)
+                const foundProduct = state.find((product) => product._id === action.payload._id)
                 foundProduct.quantity -= 1
             }
         },
