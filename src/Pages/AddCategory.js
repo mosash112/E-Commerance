@@ -9,7 +9,7 @@ function AddCategory() {
     const [name, setName] = useState();
     let navigate = useNavigate()
     const token = useSelector(state => state.user.token)
-    const api_url = url + 'products/categories'
+    const api_url = 'https://my-store-api-eipk.onrender.com/products/categories'
 
     const nameHandler = (value) => {
         setName(value)

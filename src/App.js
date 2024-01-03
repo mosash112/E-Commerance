@@ -13,7 +13,7 @@ function App() {
   const collapsed = useSelector(state => state.collapse)
   const token = useSelector(state => state.user.token)
   const [categories, setCategories] = useState([]);
-  const api_url = url + '/products'
+  const api_url = 'https://my-store-api-eipk.onrender.com/products'
 
   const collapseSidebar = () => {
     dispatch(toggleSidebar(collapsed))

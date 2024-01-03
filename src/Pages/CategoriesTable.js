@@ -7,7 +7,7 @@ import { url } from '../env.json';
 
 function CategoriesTable() {
     const [categories, setCategories] = useState([]);
-    const api_url = url + 'products/categories'
+    const api_url = 'https://my-store-api-eipk.onrender.com/products/categories'
     const token = useSelector((state) => state.user.token)
 
     useEffect(() => {

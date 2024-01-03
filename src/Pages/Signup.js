@@ -13,7 +13,7 @@ function Signup() {
     let confirmPass = false
     let navigate = useNavigate()
     const dispatch = useDispatch()
-    const api_url = url + 'users/signup'
+    const api_url = 'https://my-store-api-eipk.onrender.com/users/signup'
     const user = useSelector(state => state.user)
 
     const emailHandler = (value) => {

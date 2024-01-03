@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { url } from '../../env.json';
 
 export const fetchCategory = createAsyncThunk("productsFilterSlice/fetchCategory", async (categoryId) => {
-    const res = await fetch(url + 'products/categories/' + categoryId);
+    const res = await fetch('https://my-store-api-eipk.onrender.com/products/categories/' + categoryId);
     const data = await res.json();
     return data;
 })

@@ -12,7 +12,7 @@ function Login() {
     const [password, setPassword] = useState();
     let navigate = useNavigate()
     const dispatch = useDispatch()
-    const api_url = url + 'users/login'
+    const api_url = 'https://my-store-api-eipk.onrender.com/users/login'
     const user = useSelector(state => state.user)
 
     const emailHandler = (value) => {

@@ -15,7 +15,7 @@ function AddProduct() {
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     let navigate = useNavigate()
-    const api_url = url + 'products'
+    const api_url = 'https://my-store-api-eipk.onrender.com/products'
     const token = useSelector(state => state.user.token)
     const [categories, setCategories] = useState([]);
 

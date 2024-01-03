@@ -7,7 +7,7 @@ import { url } from '../env.json';
 
 function EditProduct() {
     const params = useParams();
-    const api_url = url + 'products';
+    const api_url = 'https://my-store-api-eipk.onrender.com/products';
     const [product, setProduct] = useState({})
     const [image, setImage] = useState();
     const [title, setTitle] = useState();
