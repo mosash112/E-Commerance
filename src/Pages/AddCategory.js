@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { url } from '../env.json';
 
 function AddCategory() {
 
     const [name, setName] = useState();
     let navigate = useNavigate()
     const token = useSelector(state => state.user.token)
-    const api_url = 'http://localhost:9000/products/categories'
+    const api_url = url + 'products/categories'
 
     const nameHandler = (value) => {
         setName(value)

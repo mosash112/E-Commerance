@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { url } from '../env.json';
 
 function AddProduct() {
 
@@ -14,16 +15,16 @@ function AddProduct() {
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     let navigate = useNavigate()
-    const api_url = 'http://localhost:9000/products'
+    const api_url = url + 'products'
     const token = useSelector(state => state.user.token)
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         fetch(`${api_url}/categories`)
-          .then(response => response.json())
-          .then(data => setCategories(data))
-          .catch(error => console.error('Error fetching categories:', error));
-      }, []);
+            .then(response => response.json())
+            .then(data => setCategories(data))
+            .catch(error => console.error('Error fetching categories:', error));
+    }, []);
 
     const imageHandler = (event) => {
         const file = event.target.files[0]; // Access the selected file
@@ -76,7 +77,7 @@ function AddProduct() {
             'Content-Type': 'application/json'
         }
         const product = {
-            title, price, description, selectedCategory, stock, image,  rate, count 
+            title, price, description, selectedCategory, stock, image, rate, count
         }
         axios.post(api_url, product, { headers: headers })
             .then(json => {
@@ -108,7 +109,7 @@ function AddProduct() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="productCategory" className="form-label">Category</label>
-                    <select value={selectedCategory} onChange={(e)=>{handleCategoryChange(e.target.value)}}>
+                    <select value={selectedCategory} onChange={(e) => { handleCategoryChange(e.target.value) }}>
                         <option value="">Select a category...</option>
                         {categories.map(category => (
                             <option key={category._id} value={category._id}>

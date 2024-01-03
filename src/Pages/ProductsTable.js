@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import '../components/css/Table.css';
 import Swal from 'sweetalert2';
 import { useSelector } from "react-redux";
+import { url } from '../env.json';
 
 function ProductsTable() {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const api_url = 'http://localhost:9000/products';
+    const api_url = url + 'products';
     const token = useSelector((state) => state.user.token)
 
     useEffect(() => {
@@ -72,7 +73,7 @@ function ProductsTable() {
                                 <td>{index + 1}</td>
                                 <td>{product?.title?.slice(0, 30)}...</td>
                                 <td>{
-                                    categories.find(cat=>cat._id === product?.category)?.name
+                                    categories.find(cat => cat._id === product?.category)?.name
                                 }</td>
                                 <td>{product?.description?.slice(0, 50)}...</td>
                                 <td>{product.price}</td>

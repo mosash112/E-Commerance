@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { storeUser } from '../rtk/slices/auth-slice';
 import Swal from "sweetalert2";
+import { url } from '../env.json';
 
 function Signup() {
     const [email, setEmail] = useState();
@@ -12,7 +13,7 @@ function Signup() {
     let confirmPass = false
     let navigate = useNavigate()
     const dispatch = useDispatch()
-    const api_url = 'http://localhost:9000/users/signup'
+    const api_url = url + 'users/signup'
     const user = useSelector(state => state.user)
 
     const emailHandler = (value) => {

@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import '../components/css/Table.css';
 import Swal from 'sweetalert2';
 import { useSelector } from "react-redux";
+import { url } from '../env.json';
 
 function CategoriesTable() {
     const [categories, setCategories] = useState([]);
-    const api_url = 'http://localhost:9000/products/categories'
+    const api_url = url + 'products/categories'
     const token = useSelector((state) => state.user.token)
 
     useEffect(() => {

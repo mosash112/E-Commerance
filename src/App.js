@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar } from './rtk/slices/collapse-slice';
 import { Link } from "react-router-dom";
 import PathRouter from './components/PathRouter';
+import { url } from './env.json';
 
 function App() {
   const dispatch = useDispatch()
   const collapsed = useSelector(state => state.collapse)
   const token = useSelector(state => state.user.token)
   const [categories, setCategories] = useState([]);
-  const api_url = 'http://localhost:9000/products'
+  const api_url = url + 'products'
 
   const collapseSidebar = () => {
     dispatch(toggleSidebar(collapsed))

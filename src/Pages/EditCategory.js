@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { url } from '../env.json';
 
 function EditCategory() {
     const params = useParams();
-    const api_url = 'http://localhost:9000/products/categories';
+    const api_url = url + 'products/categories';
     const [category, setCategory] = useState({})
     const [name, setName] = useState();
     let navigate = useNavigate()

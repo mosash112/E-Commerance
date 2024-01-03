@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { url } from '../../env.json';
 
 export const fetchCategory = createAsyncThunk("productsFilterSlice/fetchCategory", async (categoryId) => {
-    const res = await fetch('http://localhost:9000/products/categories/'+categoryId);
+    const res = await fetch(url + 'products/categories/' + categoryId);
     const data = await res.json();
     return data;
 })

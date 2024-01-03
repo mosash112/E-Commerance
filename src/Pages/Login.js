@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { storeUser } from '../rtk/slices/auth-slice';
 import { Button } from "react-bootstrap";
+import { url } from '../env.json';
 
 function Login() {
 
@@ -11,7 +12,7 @@ function Login() {
     const [password, setPassword] = useState();
     let navigate = useNavigate()
     const dispatch = useDispatch()
-    const api_url = 'http://localhost:9000/users/login'
+    const api_url = url + 'users/login'
     const user = useSelector(state => state.user)
 
     const emailHandler = (value) => {
@@ -56,7 +57,7 @@ function Login() {
                 </div>
                 <button type="submit" className="btn btn-primary">Log in</button>
             </form>
-            <p>doesn't have an account? {<Button variant="primary" onClick={()=>navigate('/signup')}>Sign up</Button>}</p>
+            <p>doesn't have an account? {<Button variant="primary" onClick={() => navigate('/signup')}>Sign up</Button>}</p>
         </>
     )
 }

@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { url } from '../env.json';
 
 function EditProduct() {
     const params = useParams();
-    const api_url = 'http://localhost:9000/products';
+    const api_url = url + 'products';
     const [product, setProduct] = useState({})
     const [image, setImage] = useState();
     const [title, setTitle] = useState();
@@ -28,7 +29,7 @@ function EditProduct() {
     const getProduct = () => {
         fetch(`${api_url}/${params.productId}`)
             .then(res => res.json())
-            .then(json => { setProduct(json.product);console.log(json.product); })
+            .then(json => { setProduct(json.product); console.log(json.product); })
     }
 
     const getAllCategories = () => {
@@ -120,7 +121,7 @@ function EditProduct() {
                 'count', value: product.count
         }], { headers: headers })
             .then(json => {
-                console.log("edited product: "+product);
+                console.log("edited product: " + product);
                 console.log(`successfully updated product ${product.title}`);
                 navigate('/productsTable')
             });

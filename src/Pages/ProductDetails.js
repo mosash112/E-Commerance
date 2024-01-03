@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import '../components/css/ProductDetails.css';
+import { url } from '../env.json';
 
 function ProductDetails() {
     const params = useParams();
-    const api_url = 'http://localhost:9000/products';
+    const api_url = url + 'products';
     const [product, setProduct] = useState({})
     const [categories, setCategories] = useState([]);
 
@@ -35,7 +36,7 @@ function ProductDetails() {
                     <h2 className="product-title">{product.title}</h2>
                 </div>
                 <p className="product-text">{product?.description}</p>
-                <p className='product-category'>category: {categories.find(cat=>cat._id===product?.category)?.name}</p>
+                <p className='product-category'>category: {categories.find(cat => cat._id === product?.category)?.name}</p>
                 <p className="product-stock">{product.stock} left in stock</p>
                 <p className='product-price'>price: {product.price}$</p>
                 <p className="product-rating">rating: {product?.rate} ({product?.count})</p>
