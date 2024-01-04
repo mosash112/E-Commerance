@@ -14,7 +14,7 @@ function AppNavbar() {
   let navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const handleLinkClick  = () => {
+  const handleLinkClick = () => {
     setExpanded(false); // Close the dropdown menu after selection
   };
 
@@ -24,15 +24,14 @@ function AppNavbar() {
         <Navbar fixed='top' expand="lg" className="bg-body-tertiary" data-bs-theme="dark" expanded={expanded}>
           <Container>
             <Link to="/" className='navbar-brand'>My E-Commerce</Link>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)}/>
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+            <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
+              <Nav className="mw-auto"> 
                 <Link to="/" className='nav-link' onClick={handleLinkClick}>Home</Link>
                 <Link to="productsTable" className='nav-link' onClick={handleLinkClick}>Product Table</Link>
                 <Link to="CategoriesTable" className='nav-link' onClick={handleLinkClick}>Categories Table</Link>
                 <Link to="Cart" className='nav-link' onClick={handleLinkClick}>{cart.length > 0 ? 'Cart - ' + cart.length : 'Cart'}</Link>
-                {/* <Link to="users/login" className='nav-link'>Login</Link> */}
-                <Link className='nav-link' onClick={() => { dispatch(storeUser(''));handleLinkClick(); }} >Logout</Link>
+                <Link className='nav-link' onClick={() => { dispatch(storeUser('')); handleLinkClick(); }} >Logout</Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -43,13 +42,13 @@ function AppNavbar() {
         <Navbar fixed='top' expand="lg" className="bg-body-tertiary" data-bs-theme="dark" expanded={expanded}>
           <Container>
             <Link to="/" className='navbar-brand'>My E-Commerce</Link>
-            <Navbar.Toggle aria-controls="basic-navbar-nav"  onClick={() => setExpanded(!expanded)}/>
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto">
+            <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+            <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
+              <Nav className="mw-auto">
                 <Link to="/" className='nav-link' onClick={handleLinkClick}>Home</Link>
                 <Link to="Cart" className='nav-link' onClick={handleLinkClick}>{cart.length > 0 ? 'Cart - ' + cart.length : 'Cart'}</Link>
                 <Link to="#" className='nav-link' onClick={handleLinkClick}>Profile</Link>
-                <Link className='nav-link' onClick={() => { dispatch(storeUser(''));handleLinkClick(); }}>Logout</Link>
+                <Link className='nav-link' onClick={() => { dispatch(storeUser('')); handleLinkClick(); }}>Logout</Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -61,9 +60,9 @@ function AppNavbar() {
       <Navbar fixed='top' expand="lg" className="bg-body-tertiary" data-bs-theme="dark" expanded={expanded}>
         <Container>
           <Link to="/" className='navbar-brand'>My E-Commerce</Link>
-          <Navbar.Toggle aria-controls="basic-navbar-nav"  onClick={() => setExpanded(!expanded)}/>
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
+          <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
+            <Nav className="mw-auto">
               <Link to="/" className='nav-link' onClick={handleLinkClick}>Home</Link>
               <Link to="login" className='nav-link' onClick={handleLinkClick}>Login</Link>
               <Link to="signup" className='nav-link' onClick={handleLinkClick}>Signup</Link>

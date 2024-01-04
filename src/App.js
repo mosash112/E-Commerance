@@ -7,13 +7,11 @@ import { toggleSidebar } from './rtk/slices/collapse-slice';
 import { Link } from "react-router-dom";
 import PathRouter from './components/PathRouter';
 import { url } from './env.json';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const dispatch = useDispatch()
   const collapsed = useSelector(state => state.collapse)
-  const token = useSelector(state => state.user.token)
-  const [categories, setCategories] = useState([]);
-  const api_url = 'https://my-store-api-eipk.onrender.com/products'
 
   const collapseSidebar = () => {
     dispatch(toggleSidebar(collapsed))
@@ -21,17 +19,7 @@ function App() {
 
   useEffect(() => {
     document.title = "My E-Commerce"
-    if (token !== '') {
-      getAllCategories()
-    }
   }, [])
-
-  const getAllCategories = () => {
-    fetch(`${api_url}/categories`)
-      .then(response => response.json())
-      .then(data => { setCategories(data) })
-      .catch(error => console.error('Error fetching categories:', error));
-  }
 
   return (
     <div className="App">
@@ -41,23 +29,7 @@ function App() {
       </button>
       <div className='row content'>
         <div className='screen'>
-          <div className="collapse collapse-horizontal" id="collapseWidthExample">
-            <ul className="list-unstyled sidebar">
-              <li>
-                <Link to="products">get all products</Link>
-              </li>
-              <ul className='list-unstyled'>
-                <li>Filters</li>
-                {categories.map((category) => {
-                  return (
-                    <li key={category._id}>
-                      <Link to={`products/categories/${category._id}`}>{category.name}</Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </ul>
-          </div>
+          <Sidebar />
           <div className='container'>
             <PathRouter />
           </div>
