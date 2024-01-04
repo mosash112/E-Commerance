@@ -26,18 +26,19 @@ function AddProduct() {
             .catch(error => console.error('Error fetching categories:', error));
     }, []);
 
-    const imageHandler = (event) => {
-        const file = event.target.files[0]; // Access the selected file
+    const imageHandler = (value) => {
+        // const file = event.target.files[0]; // Access the selected file
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const imageData = e.target.result; // Get the image data (base64 format)
-                // Perform actions with the selected image data (e.g., display, upload, etc.)
-                setImage(imageData) // Just an example, you can perform other actions here
-            };
-            reader.readAsDataURL(file); // Convert the selected file to a data URL (base64)
-        }
+        // if (file) {
+        //     const reader = new FileReader();
+        //     reader.onload = (e) => {
+        //         const imageData = e.target.result; // Get the image data (base64 format)
+        //         // Perform actions with the selected image data (e.g., display, upload, etc.)
+        //         setImage(imageData) // Just an example, you can perform other actions here
+        //     };
+        //     reader.readAsDataURL(file); // Convert the selected file to a data URL (base64)
+        // }
+        setImage(value)
     };
 
     const titleHandler = (value) => {
@@ -96,7 +97,7 @@ function AddProduct() {
                 <div className="mb-3">
                     <label htmlFor="productImage" className="form-label">Image</label>
                     <span className="text-success"> (400px*400px)</span>
-                    <input type="file" className="form-control" id="productImage" accept="image/*" placeholder="product image" aria-describedby="Product image" onChange={imageHandler} />
+                    <input type="url" className="form-control" id="productImage" accept="image/*" placeholder="product image" aria-describedby="Product image" onChange={(e)=>{imageHandler(e.target.value)}} />
                     {image && <img src={image} alt="Selected" className="w-25 mt-3" />}
                 </div>
                 <div className="mb-3">

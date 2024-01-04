@@ -59,6 +59,7 @@ function ProductsTable() {
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Image</th>
                         <th>Title</th>
                         <th>Category</th>
                         <th>Description</th>
@@ -71,6 +72,7 @@ function ProductsTable() {
                         return (
                             <tr key={product._id}>
                                 <td>{index + 1}</td>
+                                <td><img src={product.image} alt="Selected" className="w-25 mt-3" /></td>
                                 <td>{product?.title?.slice(0, 30)}...</td>
                                 <td>{
                                     categories.find(cat => cat._id === product?.category)?.name
