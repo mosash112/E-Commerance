@@ -57,7 +57,7 @@ function Login() {
                 </div>
                 <button type="submit" className="btn btn-primary">Log in</button>
             </form>
-            <p>doesn't have an account? {<Button variant="primary" onClick={() => navigate('/signup')}>Sign up</Button>}</p>
+            <p>doesn't have an account? {<Link to='/signup' variant="primary">Sign up</Link>}</p>
         </>
     )
 }
