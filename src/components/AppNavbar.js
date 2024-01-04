@@ -21,7 +21,7 @@ function AppNavbar() {
   if (token) {
     if (user.admin) {
       return (
-        <Navbar fixed='top' expand="lg" className="bg-body-tertiary">
+        <Navbar fixed='top' expand="lg" className="bg-body-tertiary" data-bs-theme="dark" expanded={expanded}>
           <Container>
             <Link to="/" className='navbar-brand'>My E-Commerce</Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)}/>
@@ -40,7 +40,7 @@ function AppNavbar() {
       );
     } else {
       return (
-        <Navbar fixed='top' expand="lg" className="bg-body-tertiary">
+        <Navbar fixed='top' expand="lg" className="bg-body-tertiary" data-bs-theme="dark" expanded={expanded}>
           <Container>
             <Link to="/" className='navbar-brand'>My E-Commerce</Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav"  onClick={() => setExpanded(!expanded)}/>
@@ -58,7 +58,7 @@ function AppNavbar() {
     }
   } else {
     return (
-      <Navbar fixed='top' expand="lg" className="bg-body-tertiary">
+      <Navbar fixed='top' expand="lg" className="bg-body-tertiary" data-bs-theme="dark" expanded={expanded}>
         <Container>
           <Link to="/" className='navbar-brand'>My E-Commerce</Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav"  onClick={() => setExpanded(!expanded)}/>
