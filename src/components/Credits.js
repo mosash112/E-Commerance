@@ -1,5 +1,6 @@
 import React from "react";
 import Time from "./Time";
+import './css/Footer.css'
 
 class Credits extends React.Component {
     constructor(props){
