@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './App.css';
 import Footer from './components/Footer';
 import AppNavbar from './components/AppNavbar';
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar } from './rtk/slices/collapse-slice';
-import { Link } from "react-router-dom";
 import PathRouter from './components/PathRouter';
-import { url } from './env.json';
 import Sidebar from './components/Sidebar';
 
 function App() {

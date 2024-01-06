@@ -10,11 +10,13 @@ const cartSlice = createSlice({
                 foundProduct.quantity += 1
             } else {
                 const productClone = { ...action.payload, quantity: 1 }
-                state.push(productClone)
+                // state.push(productClone)
+                return [...state, productClone]
             }
         },
         deleteFromCart: (state, action) => {
-            return state.filter((product) => product._id !== action.payload._id)
+            const currectCart = state
+            return currectCart.filter((product) => product._id !== action.payload._id)
         },
         decreaseQuantity: (state, action) => {
             const productClone = { ...action.payload }

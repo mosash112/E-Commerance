@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { url } from '../../env.json';
+import { PRODUCTS_ENDPOINT } from '../../env';
 
 export const fetchProducts = createAsyncThunk("productsSlice/fetchProducts", async () => {
-    const res = await fetch('https://my-store-api-eipk.onrender.com/products');
+    const res = await fetch(PRODUCTS_ENDPOINT);
     const data = await res.json();
     return data;
 })
@@ -19,6 +19,6 @@ const productsSlice = createSlice({
     }
 })
 
-export const { } = productsSlice.actions;
+// export const { } = productsSlice.actions;
 
 export default productsSlice.reducer;

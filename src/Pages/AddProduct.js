@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { url } from '../env.json';
+import { CATEGORIES_ENDPOINT, PRODUCTS_ENDPOINT } from '../env';
+import Swal from "sweetalert2";
 
 function AddProduct() {
 
@@ -15,30 +16,41 @@ function AddProduct() {
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     let navigate = useNavigate()
-    const api_url = 'https://my-store-api-eipk.onrender.com/products'
     const token = useSelector(state => state.user.token)
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        fetch(`${api_url}/categories`)
+        fetch(CATEGORIES_ENDPOINT)
             .then(response => response.json())
             .then(data => setCategories(data))
             .catch(error => console.error('Error fetching categories:', error));
     }, []);
 
-    const imageHandler = (value) => {
-        // const file = event.target.files[0]; // Access the selected file
+    const imageHandler = (event) => {
+        const file = event.target.files[0]; // Access the selected file
 
-        // if (file) {
-        //     const reader = new FileReader();
-        //     reader.onload = (e) => {
-        //         const imageData = e.target.result; // Get the image data (base64 format)
-        //         // Perform actions with the selected image data (e.g., display, upload, etc.)
-        //         setImage(imageData) // Just an example, you can perform other actions here
-        //     };
-        //     reader.readAsDataURL(file); // Convert the selected file to a data URL (base64)
-        // }
-        setImage(value)
+        if (file) {
+            const fileSizeInKB = file.size / 1024;
+            const maxSizeInKB = 5 * 1024; // 5MB
+            console.log(`File size: ${fileSizeInKB} KB`);
+
+            if (fileSizeInKB > maxSizeInKB) {
+                console.log('File size exceeds the limit');
+                Swal.fire({
+                    title: `Exceeding the limit`,
+                    text: 'File size exceeds the limit',
+                    showCancelButton: false
+                })
+            } else {
+                console.log('file within limits');
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageData = e.target.result;
+                    setImage(imageData)
+                };
+                reader.readAsDataURL(file);
+            }
+        }
     };
 
     const titleHandler = (value) => {
@@ -80,12 +92,13 @@ function AddProduct() {
         const product = {
             title, price, description, selectedCategory, stock, image, rate, count
         }
-        axios.post(api_url, product, { headers: headers })
+        // console.log('product: ', product);
+        axios.post(PRODUCTS_ENDPOINT, product, { headers: headers })
             .then(json => {
                 // console.log("added product: "+product);
                 console.log(`successfully added product ${title}`);
                 navigate('/productsTable')
-            });
+            })
     }
 
 
@@ -96,8 +109,8 @@ function AddProduct() {
             <form onSubmit={formSubmit}>
                 <div className="mb-3">
                     <label htmlFor="productImage" className="form-label">Image</label>
-                    <span className="text-success"> (400px*400px)</span>
-                    <input type="url" className="form-control" id="productImage" accept="image/*" placeholder="product image" aria-describedby="Product image" onChange={(e)=>{imageHandler(e.target.value)}} />
+                    <span className="text-success"> (400px*400px, max: 5 mb)</span>
+                    <input type="file" className="form-control" id="productImage" accept="image/*" placeholder="product image" aria-describedby="Product image" onChange={(e) => { imageHandler(e) }} />
                     {image && <img src={image} alt="Selected" className="w-25 mt-3" />}
                 </div>
                 <div className="mb-3">

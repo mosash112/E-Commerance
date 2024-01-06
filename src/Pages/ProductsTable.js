@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import '../components/css/Table.css';
 import Swal from 'sweetalert2';
 import { useSelector } from "react-redux";
-import { url } from '../env.json';
+import { PRODUCTS_ENDPOINT } from '../env';
 
 function ProductsTable() {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const api_url = 'https://my-store-api-eipk.onrender.com/products';
     const token = useSelector((state) => state.user.token)
 
     useEffect(() => {
@@ -17,7 +16,7 @@ function ProductsTable() {
     }, [])
 
     const getAllProducts = () => {
-        fetch(api_url)
+        fetch(PRODUCTS_ENDPOINT)
             .then(res => res.json())
             .then(json => {
                 setProducts(json.products);
@@ -25,7 +24,7 @@ function ProductsTable() {
     }
 
     const getAllCategories = () => {
-        fetch(`${api_url}/categories`)
+        fetch(`${PRODUCTS_ENDPOINT}/categories`)
             .then(response => response.json())
             .then(data => { setCategories(data); console.log(); })
             .catch(error => console.error('Error fetching categories:', error));
@@ -41,7 +40,7 @@ function ProductsTable() {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 }
-                fetch(`${api_url}/${product._id}`, { method: "DELETE", headers: headers })
+                fetch(`${PRODUCTS_ENDPOINT}/${product._id}`, { method: "DELETE", headers: headers })
                     .then(res => res.json())
                     .then(json => {
                         console.log(`successfully deleted product #${product._id}`);

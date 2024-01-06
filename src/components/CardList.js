@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Card from "./Card";
 import './css/CardList.css';
 import { fetchProducts } from "../rtk/slices/products-slice";
@@ -28,19 +28,20 @@ function CardList() {
     }
 
     const cardsmap = cards.map((card) => {
+        let ret = null
         if (params.categoryId && card.category === filter._id) {
-            return (
+            ret =
                 <div className="col-3" key={card._id}>
                     <Card product={card} />
                 </div>
-            )
-        }else if (!params.categoryId){
-            return (
+
+        } else if (!params.categoryId) {
+            ret =
                 <div className="col-3" key={card._id}>
                     <Card product={card} />
                 </div>
-            )
         }
+        return ret
     })
 
     return (

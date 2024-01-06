@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 import '../components/css/Table.css';
 import Swal from 'sweetalert2';
 import { useSelector } from "react-redux";
-import { url } from '../env.json';
+import { CATEGORIES_ENDPOINT } from '../env';
 
 function CategoriesTable() {
     const [categories, setCategories] = useState([]);
-    const api_url = 'https://my-store-api-eipk.onrender.com/products/categories'
     const token = useSelector((state) => state.user.token)
 
     useEffect(() => {
@@ -15,7 +14,7 @@ function CategoriesTable() {
     }, [])
 
     const getAllCategories = () => {
-        fetch(api_url)
+        fetch(CATEGORIES_ENDPOINT)
             .then(res => res.json())
             .then(json => {
                 setCategories(json);
@@ -32,7 +31,7 @@ function CategoriesTable() {
                     'Authorization': 'Bearer ' + token,
                     'Content-Type': 'application/json'
                 }
-                fetch(`${api_url}/${category._id}`, { method: "DELETE", headers: headers })
+                fetch(`${CATEGORIES_ENDPOINT}/${category._id}`, { method: "DELETE", headers: headers })
                     .then(res => res.json())
                     .then(json => {
                         console.log(`successfully deleted category #${category._id}`);

@@ -1,27 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import '../components/css/ProductDetails.css';
-import { url } from '../env.json';
+import { PRODUCTS_ENDPOINT } from '../env';
 
 function ProductDetails() {
     const params = useParams();
-    const api_url = 'https://my-store-api-eipk.onrender.com/products';
     const [product, setProduct] = useState({})
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         getProduct()
         getAllCategories()
-    }, [])
+    })
 
     const getProduct = () => {
-        fetch(`${api_url}/${params.productId}`)
+        fetch(`${PRODUCTS_ENDPOINT}/${params.productId}`)
             .then(res => res.json())
             .then(json => { setProduct(json.product) })
     }
 
     const getAllCategories = () => {
-        fetch(`${api_url}/categories`)
+        fetch(`${PRODUCTS_ENDPOINT}/categories`)
             .then(response => response.json())
             .then(data => { setCategories(data); console.log(); })
             .catch(error => console.error('Error fetching categories:', error));

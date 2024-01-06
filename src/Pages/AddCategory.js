@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { url } from '../env.json';
+import { CATEGORIES_ENDPOINT } from '../env';
 
 function AddCategory() {
 
     const [name, setName] = useState();
     let navigate = useNavigate()
     const token = useSelector(state => state.user.token)
-    const api_url = 'https://my-store-api-eipk.onrender.com/products/categories'
 
     const nameHandler = (value) => {
         setName(value)
@@ -22,7 +21,7 @@ function AddCategory() {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
         }
-        axios.post(api_url, { name }, { headers: headers })
+        axios.post(CATEGORIES_ENDPOINT, { name }, { headers: headers })
             .then(json => {
                 console.log(`successfully added category ${name}`);
                 navigate('/categoriesTable')

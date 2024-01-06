@@ -3,21 +3,20 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { url } from '../env.json';
+import { CATEGORIES_ENDPOINT } from '../env';
 
 function EditCategory() {
     const params = useParams();
-    const api_url = 'https://my-store-api-eipk.onrender.com/products/categories';
     const [category, setCategory] = useState({})
     const [name, setName] = useState();
     let navigate = useNavigate()
     const token = useSelector(state => state.user.token)
 
     useEffect(() => {
-        fetch(`${api_url}/${params.categoryId}`)
+        fetch(`${CATEGORIES_ENDPOINT}/${params.categoryId}`)
             .then(res => res.json())
             .then(json => setCategory(json))
-    }, [])
+    })
 
     const nameHandler = (value) => {
         setName(value)
@@ -30,7 +29,7 @@ function EditCategory() {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
         }
-        axios.patch(`${api_url}/${category._id}`, [{
+        axios.patch(`${CATEGORIES_ENDPOINT}/${category._id}`, [{
             propName:
                 'name', value: name
         }], { headers: headers })

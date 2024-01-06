@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { url } from '../../env.json';
+import { CATEGORIES_ENDPOINT } from '../../env';
 
 export const fetchCategory = createAsyncThunk("productsFilterSlice/fetchCategory", async (categoryId) => {
-    const res = await fetch('https://my-store-api-eipk.onrender.com/products/categories/' + categoryId);
+    const res = await fetch(CATEGORIES_ENDPOINT + '/' + categoryId);
     const data = await res.json();
     return data;
 })
@@ -10,7 +10,11 @@ export const fetchCategory = createAsyncThunk("productsFilterSlice/fetchCategory
 const productsFilterSlice = createSlice({
     initialState: '',
     name: "productsFilterSlice",
-    reducers: {},
+    reducers: {
+        clearFilter: (state, action) => {
+            return '';
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchCategory.fulfilled, (state, action) => {
             const filter = action.payload;
@@ -19,6 +23,6 @@ const productsFilterSlice = createSlice({
     }
 })
 
-export const { } = productsFilterSlice.actions;
+export const { clearFilter } = productsFilterSlice.actions;
 
 export default productsFilterSlice.reducer;

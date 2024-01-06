@@ -3,11 +3,10 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { url } from '../env.json';
+import { CATEGORIES_ENDPOINT, PRODUCTS_ENDPOINT } from '../env';
 
 function EditProduct() {
     const params = useParams();
-    const api_url = 'https://my-store-api-eipk.onrender.com/products';
     const [product, setProduct] = useState({})
     const [image, setImage] = useState();
     const [title, setTitle] = useState();
@@ -27,13 +26,13 @@ function EditProduct() {
     }, [])
 
     const getProduct = () => {
-        fetch(`${api_url}/${params.productId}`)
+        fetch(`${PRODUCTS_ENDPOINT}/${params.productId}`)
             .then(res => res.json())
             .then(json => { setProduct(json.product); console.log(json.product); })
     }
 
     const getAllCategories = () => {
-        fetch(`${api_url}/categories`)
+        fetch(CATEGORIES_ENDPOINT)
             .then(response => response.json())
             .then(data => { setCategories(data) })
             .catch(error => console.error('Error fetching categories:', error));
@@ -97,7 +96,7 @@ function EditProduct() {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json'
         }
-        axios.patch(`${api_url}/${product._id}`, [{
+        axios.patch(`${PRODUCTS_ENDPOINT}/${product._id}`, [{
             propName:
                 'title', value: title
         }, {
