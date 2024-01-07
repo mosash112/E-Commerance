@@ -12,6 +12,7 @@ import Cart from '../Pages/Cart';
 import Login from '../Pages/Login';
 import { useSelector } from 'react-redux';
 import Signup from '../Pages/Signup';
+import Orders from '../Pages/Orders';
 
 function PathRouter() {
     const token = useSelector(state => state.user.token)
@@ -35,6 +36,9 @@ function PathRouter() {
                     <Route path='categoriesTable' element={<Outlet />} >
                         <Route path='' element={<CategoriesTable />} />
                         <Route path='add' element={<AddCategory />} />
+                    </Route>
+                    <Route path='orders' element={<Outlet />}>
+                        <Route path='' element={<Orders />} />
                     </Route>
                     <Route path='categories/edit/:categoryId' element={<EditCategory />} />
                     <Route path='login' element={<Login />} />

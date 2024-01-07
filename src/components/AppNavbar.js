@@ -39,7 +39,8 @@ function AppNavbar() {
             <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
               <Nav className="mw-auto">
                 <Link to="/" className='nav-link' onClick={handleLinkClick}>Home</Link>
-                <Link to="Cart" className='nav-link' onClick={handleLinkClick}>{cart.length > 0 ? 'Cart - ' + cart.length : 'Cart'}</Link>
+                {/* <Link to="Cart" className='nav-link' onClick={handleLinkClick}>{cart.length > 0 ? 'Cart - ' + cart.length : 'Cart'}</Link> */}
+                <Link to="/orders" className='nav-link' onClick={handleLinkClick}>Orders</Link>
                 <Link className='nav-link' onClick={() => { loggingOut(); handleLinkClick(); }} >Logout</Link>
               </Nav>
             </Navbar.Collapse>
@@ -60,6 +61,7 @@ function AppNavbar() {
                 <Link to="/" className='nav-link' onClick={handleLinkClick}>Home</Link>
                 <Link to="Cart" className='nav-link' onClick={handleLinkClick}>{cart.length > 0 ? 'Cart - ' + cart.length : 'Cart'}</Link>
                 <Link to="#" className='nav-link' onClick={handleLinkClick}>Profile</Link>
+                <Link to="/orders" className='nav-link' onClick={handleLinkClick}>Orders</Link>
                 <Link className='nav-link' onClick={() => { loggingOut(); handleLinkClick(); }}>Logout</Link>
               </Nav>
             </Navbar.Collapse>

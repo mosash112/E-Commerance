@@ -27,16 +27,16 @@ function Cart() {
                     </tr>
                 </thead>
                 <tbody>
-                    {cart.map((product) => {
+                    {cart.map((product, index) => {
                         return (
                             <tr key={product._id}>
-                                <td>{product._id}</td>
+                                <td>{index + 1}</td>
                                 <td>{product?.title?.slice(0, 30)}...</td>
                                 <td><Image src={product?.image} style={{ height: '150px', width: '150px' }} alt={product.title} /></td>
                                 <td>{product.price}$</td>
                                 <td>
                                     <Button variant="primary" onClick={() => dispatch(addToCart(product))}>+</Button>
-                                    {' '+product.quantity+' '}
+                                    {' ' + product.quantity + ' '}
                                     <Button variant="danger" onClick={() => dispatch(decreaseQuantity(product))}>-</Button>
                                 </td>
                                 <td>

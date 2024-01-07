@@ -54,7 +54,7 @@ function CategoriesTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {categories.map((category, index) => {
+                    {categories?.map((category, index) => {
                         return (
                             <tr key={category._id}>
                                 <td>{index + 1}</td>

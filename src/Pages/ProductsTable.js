@@ -67,7 +67,7 @@ function ProductsTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product, index) => {
+                    {products?.map((product, index) => {
                         return (
                             <tr key={product._id}>
                                 <td>{index + 1}</td>
