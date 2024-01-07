@@ -11,7 +11,7 @@ function ProductDetails() {
     useEffect(() => {
         getProduct()
         getAllCategories()
-    })
+    }, [])
 
     const getProduct = () => {
         fetch(`${PRODUCTS_ENDPOINT}/${params.productId}`)

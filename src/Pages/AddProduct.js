@@ -32,7 +32,7 @@ function AddProduct() {
         if (file) {
             const fileSizeInKB = file.size / 1024;
             const maxSizeInKB = 5 * 1024; // 5MB
-            console.log(`File size: ${fileSizeInKB} KB`);
+            // console.log(`File size: ${fileSizeInKB} KB`);
 
             if (fileSizeInKB > maxSizeInKB) {
                 console.log('File size exceeds the limit');
@@ -118,12 +118,12 @@ function AddProduct() {
                     <input type="text" className="form-control" id="productTitle" placeholder="product title" aria-describedby="Product title" onChange={(e) => { titleHandler(e.target.value) }} />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="productDesc" className="form-label">Description</label>
+                    <label htmlFor="productDescription" className="form-label">Description</label>
                     <textarea className="form-control" id="productDescription" name="productDescription" placeholder="product description" rows="4" cols="50" onChange={(e) => { descHandler(e.target.value) }}></textarea>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="productCategory" className="form-label">Category</label>
-                    <select value={selectedCategory} onChange={(e) => { handleCategoryChange(e.target.value) }}>
+                    <select value={selectedCategory} id="productCategory" onChange={(e) => { handleCategoryChange(e.target.value) }}>
                         <option value="">Select a category...</option>
                         {categories.map(category => (
                             <option key={category._id} value={category._id}>

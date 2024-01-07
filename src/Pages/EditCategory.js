@@ -16,7 +16,7 @@ function EditCategory() {
         fetch(`${CATEGORIES_ENDPOINT}/${params.categoryId}`)
             .then(res => res.json())
             .then(json => setCategory(json))
-    })
+    }, [])
 
     const nameHandler = (value) => {
         setName(value)

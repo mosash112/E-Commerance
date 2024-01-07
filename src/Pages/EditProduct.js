@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { CATEGORIES_ENDPOINT, PRODUCTS_ENDPOINT } from '../env';
+import Swal from "sweetalert2";
 
 function EditProduct() {
     const params = useParams();
@@ -28,7 +29,7 @@ function EditProduct() {
     const getProduct = () => {
         fetch(`${PRODUCTS_ENDPOINT}/${params.productId}`)
             .then(res => res.json())
-            .then(json => { setProduct(json.product); console.log(json.product); })
+            .then(json => { setProduct(json.product) })
     }
 
     const getAllCategories = () => {
@@ -38,20 +39,32 @@ function EditProduct() {
             .catch(error => console.error('Error fetching categories:', error));
     }
 
-    const imageHandler = (value) => {
-        // const file = event.target.files[0]; // Access the selected file
+    const imageHandler = (event) => {
+        const file = event.target.files[0]; // Access the selected file
 
-        // if (file) {
-        //     const reader = new FileReader();
-        //     reader.onload = (e) => {
-        //         const imageData = e.target.result; // Get the image data (base64 format)
-        //         // Perform actions with the selected image data (e.g., display, upload, etc.)
-        //         setImage(imageData) // Just an example, you can perform other actions here
-        //     };
-        //     reader.readAsDataURL(file); // Convert the selected file to a data URL (base64)
-        // }
-        product.image = value
-        setImage(value)
+        if (file) {
+            const fileSizeInKB = file.size / 1024;
+            const maxSizeInKB = 5 * 1024; // 5MB
+            // console.log(`File size: ${fileSizeInKB} KB`);
+
+            if (fileSizeInKB > maxSizeInKB) {
+                console.log('File size exceeds the limit');
+                Swal.fire({
+                    title: `Exceeding the limit`,
+                    text: 'File size exceeds the limit',
+                    showCancelButton: false
+                })
+            } else {
+                console.log('file within limits');
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const imageData = e.target.result;
+                    setImage(imageData)
+                    product.image = imageData
+                };
+                reader.readAsDataURL(file);
+            }
+        }
     };
 
     const titleHandler = (value) => {
@@ -122,7 +135,7 @@ function EditProduct() {
                 'count', value: product.count
         }], { headers: headers })
             .then(json => {
-                console.log("edited product: " + product);
+                // console.log("edited product: " + product);
                 console.log(`successfully updated product ${product.title}`);
                 navigate('/productsTable')
             });
@@ -137,8 +150,8 @@ function EditProduct() {
                 <div className="mb-3">
                     <label htmlFor="productImage" className="form-label">Image</label>
                     <span className="text-success"> (400px*400px)</span>
-                    <input type="url" className="form-control" id="productImage" accept="image/*" value={product.image} aria-describedby="Product image" onChange={(e)=>{imageHandler(e.target.value)}} />
-                    {image && <img src={image} alt="Selected" className="w-25 mt-3" />}
+                    <input type="file" className="form-control" id="productImage" accept="image/*" aria-describedby="Product image" onChange={(e) => { imageHandler(e) }} />
+                    {product?.image && <img src={product?.image} alt="Selected" className="w-25 mt-3" />}
                 </div>
                 <div className="mb-3">
                     <label htmlFor="productTitle" className="form-label">Title</label>
